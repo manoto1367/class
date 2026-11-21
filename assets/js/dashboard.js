@@ -1,0 +1,21 @@
+(function(){
+  const $=i=>document.getElementById(i),fa=SP.fa,n=SP.num;
+  const st=SP.stats(SP.data());
+  $("k-classes").textContent=fa(st.classes);$("k-students").textContent=fa(st.students);
+  $("k-accounts").textContent=fa(st.accounts)+" از "+fa(st.students);$("k-sessions").textContent=fa(st.sessions);
+  const a=st.att,tot=a.p+a.a+a.l+a.e;
+  $("att-sub").textContent=a.days?`${fa(a.days)} روز-کلاس ثبت شده؛ امروز: ${fa(a.tp)} حاضر، ${fa(a.ta)} غایب`:"هنوز حضور و غیابی ثبت نشده است";
+  const chip=(l,v,c)=>`<div class="chip"><b style="color:${c}">${fa(v)}</b><small>${l}</small></div>`;
+  $("att-chips").innerHTML=chip("حاضر",a.p,"#4ade80")+chip("غایب",a.a,"#f87171")+chip("تأخیر",a.l,"#fbbf24")+chip("مرخصی",a.e,"#60a5fa");
+  const bar=(l,v,max,txt)=>`<div class="row"><span>${l}</span><div class="track"><span data-w="${max?v/max*100:0}"></span></div><b>${txt}</b></div>`;
+  $("att-bar").innerHTML=tot?bar("درصد حضور",a.p,tot,fa(Math.round(a.p/tot*100))+"٪")+bar("درصد غیبت",a.a,tot,fa(Math.round(a.a/tot*100))+"٪"):"";
+  $("sc-sub").textContent=`${fa(st.scores)} نمره ثبت شده`;
+  $("sc-bars").innerHTML=st.types.map(t=>bar(t.n,t.avg,20,t.c?n(t.avg):"—")).join("");
+  $("ex-chips").innerHTML=chip("نمرهٔ آزمون",st.exams.c,"var(--accent-soft)")+chip("میانگین آزمون",0,"var(--accent-2)").replace(">۰<",">"+(st.exams.c?n(st.exams.avg):"—")+"<")+chip("حساب فعال",st.accounts,"#4ade80")+chip("بدون حساب",st.students-st.accounts,"#fbbf24");
+  $("acc-bar").innerHTML=bar("پوشش حساب‌ها",st.accounts,st.students,st.students?fa(Math.round(st.accounts/st.students*100))+"٪":"—");
+  $("cls-body").innerHTML=st.perClass.length?st.perClass.map(c=>`<tr><td data-label="کلاس">${c.n}</td><td data-label="دانش‌آموزان">${fa(c.students)}</td><td data-label="جلسه در هفته">${fa(c.sessions)}</td><td data-label="حاضر">${fa(c.present)}</td><td data-label="غایب">${fa(c.absent)}</td><td data-label="میانگین نمرات">${c.avg?n(c.avg):"—"}</td></tr>`).join(""):'<tr><td colspan="6" class="empty-note">کلاسی ثبت نشده است.</td></tr>';
+  $("schools").innerHTML=SP.list().map(s=>{const x=SP.stats(SP.data(s.id));return`<div class="school-row ${s.id===SP.active()?"on":""}"><i class="fas fa-school"></i><strong>${SP.name(s)}<br><small>${fa(x.classes)} کلاس · ${fa(x.students)} دانش‌آموز</small></strong>${s.id===SP.active()?'<span class="badge success">فعال</span>':`<button class="btn btn-secondary btn-sm" data-sw="${s.id}">ورود</button>`}</div>`}).join("");
+  $("schools").addEventListener("click",e=>{const b=e.target.closest("[data-sw]");if(b){SP.switch(b.dataset.sw);location.reload()}});
+  $("add-school").addEventListener("click",()=>{const nm=prompt("نام مدرسه‌ی جدید را وارد کنید:");if(nm&&nm.trim()){SP.add(nm.trim());location.href="pages/school/index.html?tab=0"}});
+  requestAnimationFrame(()=>document.querySelectorAll("[data-w]").forEach(b=>b.style.width=b.dataset.w+"%"));
+})();

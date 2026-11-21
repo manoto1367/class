@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>حساب دانش‌آموزان | پنل مدرسه</title>
+  <link rel="stylesheet" href="../../assets/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../../assets/css/vazirmatn.css">
+  <link rel="stylesheet" href="../../assets/css/app.css">
+  <link rel="icon" type="image/svg+xml" href="../../assets/images/favicon.svg">
+</head>
+<body data-root="../../" data-page="accounts" data-title="حساب دانش‌آموزان" data-subtitle="مشخص است برای چه کسانی حساب ورود تعریف شده">
+  <main class="page-content" data-app-shell>
+    <section class="grid grid-4 mb-2">
+      <article class="card lift reveal"><div class="stat"><div><span class="stat-label">کل دانش‌آموزان</span><p class="stat-value" id="a-total">۰</p></div><span class="stat-icon"><i class="fas fa-user-graduate"></i></span></div></article>
+      <article class="card lift reveal" style="--delay:60ms"><div class="stat"><div><span class="stat-label">دارای حساب</span><p class="stat-value" id="a-has">۰</p></div><span class="stat-icon"><i class="fas fa-user-check"></i></span></div></article>
+      <article class="card lift reveal" style="--delay:120ms"><div class="stat"><div><span class="stat-label">بدون حساب</span><p class="stat-value" id="a-no">۰</p></div><span class="stat-icon"><i class="fas fa-user-times"></i></span></div></article>
+      <article class="card lift reveal" style="--delay:180ms"><div class="stat"><div><span class="stat-label">پوشش حساب‌ها</span><p class="stat-value" id="a-pct">۰٪</p></div><span class="stat-icon"><i class="fas fa-percentage"></i></span></div></article>
+    </section>
+    <section class="card reveal">
+      <div class="section-head"><div><h2>فهرست حساب‌ها — <span id="a-school"></span></h2><p>رمزها برای امنیت نمایش داده نمی‌شوند؛ ساخت و تغییر حساب در برنامهٔ مدیریت کلاس است.</p></div>
+        <a class="btn btn-primary btn-sm" href="../school/index.html?tab=11"><i class="fas fa-key"></i> ساخت / ویرایش حساب</a></div>
+      <div class="row-tools" style="display:flex;gap:.7rem;flex-wrap:wrap;margin-bottom:1rem">
+        <input class="school-select" style="max-width:none;flex:1" id="a-q" placeholder="جستجوی نام یا نام کاربری…">
+        <select class="school-select" id="a-f"><option value="">همه</option><option value="1">دارای حساب</option><option value="0">بدون حساب</option></select>
+      </div>
+      <div class="table-wrap"><table class="data-table responsive"><thead><tr><th>دانش‌آموز</th><th>پایه / شعبه</th><th>نام کاربری</th><th>وضعیت</th></tr></thead><tbody id="a-body"></tbody></table></div>
+    </section>
+  </main>
+  <script src="../../assets/js/schools.js"></script>
+  <script src="../../assets/js/app.js"></script>
+  <script src="../../assets/js/accounts.js"></script>
+</body>
+</html>
